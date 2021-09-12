@@ -18,4 +18,9 @@ module.exports = {
     enable: true,
     package: 'egg-valparams',
   },
+  // 模板渲染
+  nunjucks: {
+    enable: true,
+    package: 'egg-view-nunjucks',
+  },
 };

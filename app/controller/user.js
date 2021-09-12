@@ -3,26 +3,25 @@
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
-  async index(ctx) {
+  async list(ctx) {
     console.log(ctx);
-    ctx.body = '123';
+    await ctx.render('manager/user.html');
   }
-  async new(ctx) {
-    console.log(ctx);
+  // 创建表单模板页面
+  async create(ctx) {
+    await ctx.render('manager/user.html');
   }
-  async create() {
+  async save() {
     const ctx = this.ctx;
     // ctx.throw(500, 'zzz');
+    // 参数验证
     ctx.validate({
-      name: { type: 'string', required: true, desc: '名称' },
-      age: { type: 'number', required: false, desc: '年龄', defValue: '18' },
+      username: { type: 'string', required: true, desc: '用户名' },
+      password: { type: 'string', required: true, desc: '密码' },
     });
     const { name, age } = ctx.request.body;
     const user = await ctx.model.User.create({ name, age });
     ctx.apiSuccess(user);
-  }
-  async show(ctx) {
-    console.log(ctx);
   }
 }
 

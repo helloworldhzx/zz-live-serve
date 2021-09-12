@@ -28,6 +28,12 @@ module.exports = appInfo => {
     },
   };
 
+  config.view = {
+    mapping: {
+      '.html': 'nunjucks',
+    },
+  };
+
   // 参数验证配置
   config.valparams = {
     locale: 'zh-cn',

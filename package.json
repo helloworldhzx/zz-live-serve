@@ -13,6 +13,7 @@
     "egg-security": "^2.9.0",
     "egg-sequelize": "^6.0.0",
     "egg-valparams": "^1.4.5",
+    "egg-view-nunjucks": "^2.3.0",
     "mysql2": "^2.3.0"
   },
   "devDependencies": {

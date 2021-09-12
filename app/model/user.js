@@ -9,12 +9,12 @@ module.exports = app => {
       primaryKey: true,
       autoIncrement: true, // 自增
     },
-    name: {
+    useName: {
       type: STRING(50),
       allowNull: false, // 不能为空
       unique: true, // 不允许有相同值
     },
-    age: INTEGER,
+    password: INTEGER,
     created_time: DATE,
     updated_time: DATE,
   });
