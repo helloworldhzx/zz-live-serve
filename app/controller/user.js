@@ -19,8 +19,7 @@ class UserController extends Controller {
     });
     const { name, age } = ctx.request.body;
     const user = await ctx.model.User.create({ name, age });
-    ctx.status = 201;
-    ctx.body = user;
+    ctx.apiSuccess(user);
   }
   async show(ctx) {
     console.log(ctx);
