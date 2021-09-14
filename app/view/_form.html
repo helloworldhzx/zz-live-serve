@@ -36,7 +36,19 @@
         },
         methods: {
             fileUpload(e, name){
-                console.log(e, name)
+                const file = e.target.files;
+                const formData =  new FormData()
+                 formData.append('file',file[0])
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/upload?_csrf={{ctx.csrf|safe}}",
+                    contentType:false,
+                    processData:false,
+                    data: formData,
+                    success:function(result){
+                        console.log(result)
+                    },
+                })
             },
             submit(){
                 $.ajax({

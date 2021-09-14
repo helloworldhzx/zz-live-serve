@@ -9,11 +9,11 @@ class UserController extends Controller {
       title: '管理员列表',
       tempType: 'table',
       table: {
-        tableUrl: '/admin/User/list',
+        tableUrl: '/admin/user/list',
         // 按钮
         buttons: {
           // 新增操作
-          add: '/admin/User/create',
+          add: '/admin/user/create',
         },
         // 表头
         columns: [{
@@ -31,10 +31,10 @@ class UserController extends Controller {
           fixed: 'center',
           action: {
             edit(id) {
-              return `/admin/User/edit/${id}`;
+              return `/admin/user/edit/${id}`;
             },
             delete(id) {
-              return `/admin/User/delete/${id}`;
+              return `/admin/user/delete/${id}`;
             },
           },
         }],

@@ -5,6 +5,7 @@
  */
 module.exports = app => {
   const { controller, router } = app;
+  router.post('/admin/upload', controller.common.upload);
   // router.post('/admin/user/save', controller.user.save);
   router.get('/admin/user/create', controller.user.create);
   router.get('/admin/user/list', controller.user.list);
