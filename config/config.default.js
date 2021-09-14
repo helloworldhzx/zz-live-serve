@@ -23,9 +23,20 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
   config.security = {
+    // csrf
     csrf: {
-      enable: false,
+      headerName: 'x-csrf-token',
+      ignore: ctx => {
+        return ctx.request.url.startsWith('/api');
+      },
     },
+    // 跨域白名单
+    // domainWhiteList: ['http://localhost:3000'],
+  };
+  // 允许跨域的方法
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET, PUT, POST, DELETE, PATCH',
   };
 
   config.view = {

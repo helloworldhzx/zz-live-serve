@@ -1,39 +1,28 @@
 {% extends "layout.html" %}
-
+{% block title %}管理员列表{% endblock %}
 {% block content %}
   <div class="card card-table">
-  <div class="card-header">
-    <button type="button" class="btn btn-outline-primary">创建管理员</button>
+  {% if table.buttons %}
+    <div class="card-header">
+    <a src="table.buttons.add" class="btn btn-outline-primary">创建</a>
   </div>
+  {% endif %}
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover table-center mb-0">
         <thead>
           <tr>
-            <th>用户</th>
-            <th width="120">创建时间</th>
-            <th class="text-center" width="100">操作</th>
+            {% for item in table.columns %}
+              <th>{{item.title}}</th>
+            {% endfor %}
           </tr>
         </thead>
         <tbody>
          {% for item in data %}
           <tr>
-            <td>
-              <h2 class="table-avatar">
-                <a href="profile.html">{{item.username}}</a>
-              </h2>
-            </td>
-            <td>{{item.created_time}}</td>
-            <td class="text-right">
-              <div class="actions">
-                <a href="#" class="btn btn-sm bg-success-light mr-2">
-                  <i class="fe fe-pencil"></i> 修改
-                </a>
-                <a href="#" class="btn btn-sm bg-danger-light">
-                  <i class="fe fe-trash"></i> 删除
-                </a>
-              </div>
-            </td>
+          {% for item2 in table.columns %}
+            <td>{{item[item2.key]}}</td>
+          {% endfor %}
           </tr>
         {% endfor %}
         </tbody>

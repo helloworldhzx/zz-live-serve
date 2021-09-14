@@ -59,7 +59,7 @@ module.exports = {
         ${pageEl}
 
         <li class="page-item ${nextDisabled}">
-            <a class="page-link" href="?page=${page + 1}&pageSize=${limit}${params}" aria-label="Next">
+            <a class="page-link" href="?pageNum=${page + 1}&pageSize=${limit}${params}" aria-label="Next">
                 <span aria-hidden="true">»</span>
             <span class="sr-only">Next</span>
             </a>
@@ -70,6 +70,16 @@ module.exports = {
     this.locals.pageRender = pageRender;
 
     return rows;
+  },
+  async renderTemplate(params = {}) {
+    // 获取cookie中的消息提示（闪存）
+    const toast = this.cookies.get('toast', {
+      // 中文需要解密
+      encrypt: true,
+    });
+    console.log(toast);
+    params.toast = toast ? JSON.parse(toast) : null;
+    await this.render('template.html', params);
   },
   // 对象转&拼接字符串
   urlEncode(param, key, encode) {
@@ -85,5 +95,13 @@ module.exports = {
       }
     }
     return paramStr;
+  },
+  toast(msg, type = 'danger') {
+    this.cookies.set('toast', JSON.stringify({
+      msg, type,
+    }), {
+      maxAge: 1500,
+      encrypt: true,
+    });
   },
 };
