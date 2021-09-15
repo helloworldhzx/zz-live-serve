@@ -1,5 +1,5 @@
 'use strict';
-
+const crypto = require('crypto');
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
@@ -21,6 +21,12 @@ module.exports = app => {
       allowNull: false,
       defaultValue: '',
       comment: '密码',
+      set(val) {
+        const hmac = crypto.createHash('sha256', app.config.crypto.secret);
+        hmac.update(val);
+        const hash = hmac.digest('hex');
+        this.setDataValue('password', hash);
+      },
     },
     avatar: {
       type: STRING,
@@ -34,7 +40,12 @@ module.exports = app => {
       defaultValue: 0,
       comment: '金币',
     },
-    created_time: DATE,
+    created_time: {
+      type: DATE,
+      get() {
+        return app.formatTime(this.getDataValue('created_time'));
+      },
+    },
     updated_time: DATE,
   });
 

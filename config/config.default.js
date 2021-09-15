@@ -16,8 +16,14 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1631350101053_128';
 
   // add your middleware config here
-  config.middleware = [ 'error' ];
-
+  config.middleware = [ 'error', 'adminAuth' ];
+  config.adminAuth = {
+    ignore: [
+      '/api',
+      '/admin/login',
+      '/admin/loginevent',
+    ],
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -73,6 +79,9 @@ module.exports = appInfo => {
       // 所有驼峰命名格式化
       underscored: true,
     },
+  };
+  config.crypto = {
+    secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
   };
   config.multipart = {
     fileSize: '50mb',

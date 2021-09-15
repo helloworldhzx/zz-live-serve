@@ -1,4 +1,5 @@
 'use strict';
+const crypto = require('crypto');
 module.exports = {
   // 成功提示
   apiSuccess(data = '', msg = 'ok', code = 200) {
@@ -9,6 +10,11 @@ module.exports = {
   apiFail(data = '', msg = 'fail', code = 400) {
     this.body = { msg, data };
     this.status = code;
+  },
+  async pageFail(data = '', code = 404) {
+    return await this.render('404.html', {
+      data, code,
+    });
   },
   async page(modelName, where = {}, options = {}) {
     const { pageNum, pageSize, ...query } = this.query;
@@ -103,5 +109,18 @@ module.exports = {
       maxAge: 1500,
       encrypt: true,
     });
+  },
+  // 验证密码
+  async checkPassword(password, hash_password) {
+    // 先对需要验证的密码进行加密
+    const hmac = crypto.createHash('sha256', this.app.config.crypto.secret);
+    hmac.update(password);
+    password = hmac.digest('hex');
+    console.log(password);
+    const res = password === hash_password;
+    if (!res) {
+      this.throw(400, '密码错误');
+    }
+    return true;
   },
 };
