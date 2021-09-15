@@ -28,6 +28,7 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
+  config.webUrl = 'http://127.0.0.1:7001';
   config.security = {
     // csrf
     csrf: {

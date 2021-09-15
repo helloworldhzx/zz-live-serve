@@ -25,4 +25,11 @@ module.exports = app => {
   router.get('/admin/manager/delete/:id', controller.admin.manager.delete);
   router.get('/admin/manager/edit/:id', controller.admin.manager.edit);
   router.post('/admin/manager/update/:id', controller.admin.manager.update);
+
+  router.get('/admin/gift/list', controller.admin.gift.list);
+  router.get('/admin/gift/create', controller.admin.gift.create);
+  router.post('/admin/gift/save', controller.admin.gift.save);
+  router.get('/admin/gift/edit/:id', controller.admin.gift.edit);
+  router.post('/admin/gift/update/:id', controller.admin.gift.update);
+  router.get('/admin/gift/delete/:id', controller.admin.gift.delete);
 };

@@ -16,7 +16,7 @@ class CommonController extends Controller {
     const stream = await ctx.getFileStream();
     console.log(stream);
     // 生成唯一文件名
-    const filename = `${Date.now()}${stream.filename}`;
+    const filename = `${Date.now()}${path.extname(stream.filename)}`;
     // 生成文件夹
     const dirname = dayjs(Date.now()).format('YYYY/MM/DD');
     function mkdirsSync(dirname) {
@@ -44,7 +44,7 @@ class CommonController extends Controller {
       this.ctx.throw(500, error);
     }
 
-    const url = path.join('/public/uploads', dirname, filename).replace(/\\|\//g, '/');
+    const url = path.join('/public/upload', dirname, filename).replace(/\\|\//g, '/');
 
     this.ctx.apiSuccess({ url });
   }

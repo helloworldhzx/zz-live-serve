@@ -39,15 +39,26 @@
                 const file = e.target.files;
                 const formData =  new FormData()
                  formData.append('file',file[0])
+                 const _t= this
                 $.ajax({
                     type: "POST",
                     url: "/admin/upload?_csrf={{ctx.csrf|safe}}",
                     contentType:false,
                     processData:false,
                     data: formData,
-                    success:function(result){
-                        console.log(result)
+                    success:(result) => {
+                        _t.form[name] = result.data.url
+                        Vueapp.$refs.toast.show({
+                            msg:"上传成功",
+                            type:"success"
+                        })
                     },
+                    error:function(e){
+                        Vueapp.$refs.toast.show({
+                            msg:e.responseJSON.data,
+                            type:"danger"
+                        })
+                    }
                 })
             },
             submit(){
