@@ -16,7 +16,17 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1631350101053_128';
 
   // add your middleware config here
-  config.middleware = [ 'error', 'adminAuth' ];
+  config.middleware = [ 'error', 'adminAuth', 'auth' ];
+  config.auth = {
+    match: [
+      '/api/logout',
+      '/api/live/create',
+      '/api/live/changestatus',
+      '/api/gift/wxpay',
+      '/api/user/info',
+      '/api/upload',
+    ],
+  };
   config.adminAuth = {
     ignore: [
       '/api',
@@ -58,6 +68,20 @@ module.exports = appInfo => {
     throwError: true,
   };
 
+  // {app_root}/config/config.default.js
+  config.jwt = {
+    secret: 'zzqhdgw@45ncashdaksh2!#@3nxjdas*_672',
+  };
+
+  // redis存储
+  config.redis = {
+    client: {
+      port: 6379, // Redis port
+      host: '127.0.0.1', // Redis host
+      password: '',
+      db: 2,
+    },
+  };
   config.sequelize = {
     dialect: 'mysql',
     host: '127.0.0.1',

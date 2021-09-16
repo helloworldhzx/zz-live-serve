@@ -42,4 +42,13 @@ module.exports = app => {
 
   router.get('/admin/order/list', controller.admin.order.index);
   router.get('/admin/order/delete/:id', controller.admin.order.delete);
+
+  // 用户注册
+  router.post('/api/reg', controller.api.user.reg);
+  // 用户登录
+  router.post('/api/login', controller.api.user.login);
+  // 退出登录
+  router.post('/api/logout', controller.api.user.logout);
+  // 获取当前用户信息
+  router.get('/api/user/info', controller.api.user.info);
 };
