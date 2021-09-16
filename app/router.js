@@ -32,4 +32,14 @@ module.exports = app => {
   router.get('/admin/gift/edit/:id', controller.admin.gift.edit);
   router.post('/admin/gift/update/:id', controller.admin.gift.update);
   router.get('/admin/gift/delete/:id', controller.admin.gift.delete);
+
+  router.get('/admin/live/list', controller.admin.live.list);
+  router.get('/admin/live/look/:id', controller.admin.live.look);
+  router.get('/admin/live/gift/:id', controller.admin.live.gift);
+  router.get('/admin/live/comment/:id', controller.admin.live.comment);
+  router.get('/admin/live/close/:id', controller.admin.live.close);
+  router.get('/admin/live/delete/:id', controller.admin.live.delete);
+
+  router.get('/admin/order/list', controller.admin.order.index);
+  router.get('/admin/order/delete/:id', controller.admin.order.delete);
 };
