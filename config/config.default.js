@@ -16,13 +16,14 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1631350101053_128';
 
   // add your middleware config here
+  // adminAuth后台接口权限， auth  api接口权限
   config.middleware = [ 'error', 'adminAuth', 'auth' ];
   config.auth = {
     match: [
       '/api/logout',
       '/api/live/create',
       '/api/live/changestatus',
-      '/api/gift/wxpay',
+      '/api/wxpay',
       '/api/user/info',
       '/api/upload',
     ],
@@ -56,6 +57,24 @@ module.exports = appInfo => {
     allowMethods: 'GET, PUT, POST, DELETE, PATCH',
   };
 
+  config.io = {
+    init: {
+      wsEngine: 'ws',
+    },
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [],
+      },
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      db: 0,
+    },
+  };
+
+  // 模板渲染配置
   config.view = {
     mapping: {
       '.html': 'nunjucks',
@@ -68,7 +87,7 @@ module.exports = appInfo => {
     throwError: true,
   };
 
-  // {app_root}/config/config.default.js
+  // token秘钥配置
   config.jwt = {
     secret: 'zzqhdgw@45ncashdaksh2!#@3nxjdas*_672',
   };
@@ -82,6 +101,7 @@ module.exports = appInfo => {
       db: 2,
     },
   };
+
   config.sequelize = {
     dialect: 'mysql',
     host: '127.0.0.1',
@@ -105,6 +125,7 @@ module.exports = appInfo => {
       underscored: true,
     },
   };
+  // 加密秘钥
   config.crypto = {
     secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
   };
@@ -112,6 +133,18 @@ module.exports = appInfo => {
     fileSize: '50mb',
     mode: 'stream',
     fileExtensions: [ '.xls', '.txt', '.jpg', '.JPG', '.png', '.PNG', '.gif', '.GIF', '.jpeg', '.JPEG' ], // 扩展几种上传的文件格式
+  };
+
+  config.webUrl = 'http://127.0.0.1:7001';
+  // 微信支付配置（最好改成你自己的）
+  config.tenpay = {
+    client: {
+      appid: 'wxc559eade7d0a3bde',
+      mchid: '1554108981',
+      partnerKey: '8b07811ec793049f1c97793464c7049f',
+      notify_url: config.webUrl + '/api/gift/notify',
+      // sandbox: true
+    },
   };
 
   return {

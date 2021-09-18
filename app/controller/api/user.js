@@ -19,7 +19,7 @@ class UserController extends Controller {
         username,
       },
     })) {
-      return ctx.apifail('用户已存在');
+      return ctx.throw(400, '该用户名已存在');
     }
     const user = await ctx.model.User.create({
       username,
@@ -45,7 +45,7 @@ class UserController extends Controller {
     });
     user = user.toJSON();
     if (!user) {
-      ctx.apifail('用户不存在');
+      ctx.apiFail('用户不存在');
     }
     await ctx.checkPassword(password, user.password);
     const token = ctx.getToken(user);
