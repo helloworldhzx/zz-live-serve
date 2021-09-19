@@ -40,6 +40,10 @@ class GiftController extends Controller {
     // ctx.logger.error(result);
     ctx.apiSuccess(result);
   }
+  async list(ctx) {
+    const res = await ctx.model.Gift.findAll();
+    ctx.apiSuccess(res);
+  }
 }
 
 module.exports = GiftController;

@@ -4,7 +4,7 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { controller, router } = app;
+  const { controller, router, io } = app;
   router.get('/admin', controller.admin.home.index);
   router.get('/admin/logout', controller.admin.home.logout);
   router.get('/admin/login', controller.admin.home.login);
@@ -54,5 +54,20 @@ module.exports = app => {
 
   // 获取直播间列表
   router.get('/api/live/list/:page', controller.api.live.list);
+  // 直播间创建
+  router.post('/api/live/create', controller.api.live.create);
+  // 修改直播间状态
+  router.post('/api/live/changeStatus', controller.api.live.changeStatus);
   router.post('/api/wxpay', controller.api.gift.wxpay);
+  router.post('/api/upload', controller.admin.common.upload);
+  // 礼物列表
+  router.get('/api/gift/list', controller.api.gift.list);
+  // 查看直播间
+  router.get('/api/live/read/:id', controller.api.live.read);
+
+  // io.of('/').route('test', io.controller.nsp.test);
+  io.of('/').route('joinLive', io.controller.nsp.joinLive);
+  io.of('/').route('leaveLive', io.controller.nsp.leaveLive);
+  io.of('/').route('comment', io.controller.nsp.comment);
+  io.of('/').route('gift', io.controller.nsp.gift);
 };
