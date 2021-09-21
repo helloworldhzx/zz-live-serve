@@ -18,15 +18,24 @@ class LiveController extends Controller {
       },
     });
     const user_id = ctx.authUser.id;
+    // 判断是否有在开播的直播间中。。。
+    const live = await ctx.model.Live.findOne({
+      where: {
+        user_id,
+        status: 1,
+      },
+    });
+    if (live) {
+      return ctx.apiFail('你已有在直播中的直播间');
+    }
     const { title, cover } = ctx.request.body;
-    console.log('------------------------', cover);
     const key = ctx.randomString(20);
     const res = await ctx.model.Live.create({
       title, cover, key, user_id,
     });
     // 生成签名
     const sign = this.sign(key);
-
+    console.log(sign);
     ctx.apiSuccess({
       data: res,
       sign,
@@ -47,14 +56,23 @@ class LiveController extends Controller {
         desc: '页码',
         type: 'int',
       },
+      user_id: {
+        required: false,
+        desc: '用户ID',
+        type: 'int',
+      },
     });
+    console.log(ctx.query, ctx.request.body, '=========where');
 
     const page = ctx.params.page;
     const limit = 10;
     const offset = (page - 1) * limit;
-
+    const where = {};
+    if (ctx.query.user_id) {
+      where.user_id = ctx.query.user_id;
+    }
     const res = await ctx.model.Live.findAll({
-      limit, offset,
+      where, limit, offset,
     });
     ctx.apiSuccess(res);
   }
@@ -62,7 +80,7 @@ class LiveController extends Controller {
   async changeStatus() {
     const { ctx, app } = this;
     const user_id = ctx.authUser.id;
-
+    console.log('logout===============');
     // 参数验证
     ctx.validate({
       id: {

@@ -48,6 +48,9 @@ module.exports = app => {
     },
     updated_time: DATE,
   });
-
+  /* // 关联关系
+  User.associate = function() {
+    User.hasMany(app.model.Follow, { as: 'Instruments' });
+  }; */
   return User;
 };

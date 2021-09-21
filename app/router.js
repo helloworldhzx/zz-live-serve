@@ -51,6 +51,14 @@ module.exports = app => {
   router.post('/api/logout', controller.api.user.logout);
   // 获取当前用户信息
   router.get('/api/user/info', controller.api.user.info);
+  // 编辑用户信息
+  router.post('/api/user/update', controller.api.user.update);
+  // 获取历史记录
+  router.get('/api/user/history/:page', controller.api.user.history);
+  // 关注列表
+  router.get('/api/user/followList/:page', controller.api.user.followList);
+  // 关注
+  router.post('/api/user/follow', controller.api.user.follow);
 
   // 获取直播间列表
   router.get('/api/live/list/:page', controller.api.live.list);

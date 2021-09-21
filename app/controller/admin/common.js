@@ -14,7 +14,6 @@ const Controller = require('egg').Controller;
 class CommonController extends Controller {
   async upload(ctx) {
     const stream = await ctx.getFileStream();
-    console.log(stream);
     // 生成唯一文件名
     const filename = `${Date.now()}${path.extname(stream.filename)}`;
     // 生成文件夹

@@ -3,6 +3,7 @@
 
 module.exports = (option, app) => {
   return async (ctx, next) => {
+    console.log('auth==========');
     // 1.获取token
     const token = ctx.header.token || ctx.query.token;
     if (!token) {
@@ -37,7 +38,7 @@ module.exports = (option, app) => {
 
     // 5.挂在到全局ctx
     ctx.authUser = user;
-
+    console.log('auth22222222');
     await next();
   };
 }

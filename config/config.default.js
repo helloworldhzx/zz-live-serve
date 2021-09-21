@@ -26,6 +26,10 @@ module.exports = appInfo => {
       '/api/wxpay',
       '/api/user/info',
       '/api/upload',
+      '/api/user/update',
+      '/api/user/history',
+      '/api/user/follow',
+      '/api/user/followList',
     ],
   };
   config.adminAuth = {

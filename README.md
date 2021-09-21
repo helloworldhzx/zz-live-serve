@@ -31,3 +31,11 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+
+### 创建表
+```
+ npx sequelize migration:generate --name=history  
+ # 升级数据库
+npx sequelize db:migrate
+```

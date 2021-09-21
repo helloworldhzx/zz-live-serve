@@ -68,13 +68,13 @@ class NspController extends Controller {
     // 用户列表加入redis存储中
     let list = await ctx.service.cache.get('userList_' + room);
     list = list ? list : [];
+    list = list.filter(item => item.id !== user.id);
     list.unshift({
       id: user.id,
       username: user.username,
       avatar: user.avatar,
     });
     ctx.service.cache.set('userList_' + room, list);
-    console.log(list, '=============');
 
     // 直播添加用户访问记录
     await ctx.model.LiveUser.create({
@@ -88,7 +88,6 @@ class NspController extends Controller {
         look_count: 1,
       });
     }
-
     // 通知在房间的其他用户
     nsp.adapter.clients(rooms, (err, clients) => {
       // 更新在线用户列表
@@ -104,6 +103,19 @@ class NspController extends Controller {
         data: list,
       });
     });
+    // 添加进历史记录
+    const history = await ctx.model.History.findOne({
+      where: {
+        user_id: user.id,
+        live_id,
+      },
+    });
+    if (!history) {
+      await ctx.model.History.create({
+        live_id,
+        user_id: user.id,
+      });
+    }
   }
 
   async leaveLive() {
