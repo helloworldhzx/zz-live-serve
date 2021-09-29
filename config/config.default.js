@@ -25,7 +25,6 @@ module.exports = appInfo => {
       '/api/live/changestatus',
       '/api/wxpay',
       '/api/user/info',
-      '/api/upload',
       '/api/user/update',
       '/api/user/history',
       '/api/user/follow',
@@ -53,7 +52,7 @@ module.exports = appInfo => {
       },
     },
     // 跨域白名单
-    // domainWhiteList: ['http://localhost:3000'],
+    // domainWhiteList: [ 'http://localhost:8080' ],
   };
   // 允许跨域的方法
   config.cors = {
